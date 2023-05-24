@@ -1,13 +1,16 @@
-import torch
-from torchvision import transforms
-from torch.utils.data import DataLoader, SubsetRandomSampler
-import torchvision
-from load_data import *
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
+from torch.utils.data import DataLoader, SubsetRandomSampler
 
-#image and annotation directories
+import torch
+import torchvision
+from torchvision import transforms
+
+from load_data import *
+
+
+# image and annotation directories
 image_dir = 'data/train/images'
 annotation_dir = 'data/train/annotations'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -16,15 +19,14 @@ train = .7
 test = .2
 validation = .1
 
-"""
-
-"""
-#image transformations
+# image transformations
 transform = transforms.Compose([
     transforms.Resize((256, 256)),
-    
 ])
-def collate_fn(batch): #makes the input to the tensors the same size 
+
+
+def collate_fn(batch):
+    """ makes the input to the tensors the same size """
     images = []
     annotations = []
 
@@ -33,7 +35,6 @@ def collate_fn(batch): #makes the input to the tensors the same size
         annotations.append(annotation)
 
     return images, annotations
-
 
 
 dataset = graphdata(image_dir, annotation_dir, transform=transform)
@@ -49,13 +50,11 @@ test_sampler = SubsetRandomSampler(test_indices)
 validation_sampler = SubsetRandomSampler(validation_indices)
 
 
-
-
-
-# Create a data loader
+# create a data loader
 train_data_loader = DataLoader(dataset, batch_size=16,  collate_fn=collate_fn, sampler=train_sampler)
 test_data_loader = DataLoader(dataset, batch_size=16,  collate_fn=collate_fn, sampler=test_sampler)
 validation_data_loader = DataLoader(dataset, batch_size=16, collate_fn=collate_fn, sampler=validation_sampler)
+
 
 """
 for batch_idx, (images, annotations) in enumerate(validation_data_loader):
