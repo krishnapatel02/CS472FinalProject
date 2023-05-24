@@ -25,8 +25,8 @@ class graphdata(Dataset):
         image_path = os.path.join(self.image_dir, image_file)
         annotation_file = image_file.replace('.jpg', '.json')
         annotation_path = os.path.join(self.annotation_dir, annotation_file)
-        print(image_path)
-        print(annotation_path)
+        #print(image_path)
+        #print(annotation_path)
 
         # Load the image
         image = Image.open(image_path).convert("RGB")
