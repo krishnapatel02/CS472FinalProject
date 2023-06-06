@@ -56,7 +56,7 @@ class graphdata(Dataset):
 
 # image transformations
 transform = transforms.Compose([
-    transforms.Resize((256, 256)), transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    transforms.Resize((256, 256), antialias=True), transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
 ])
 
 
@@ -71,17 +71,18 @@ validation = .1
 #generate random indexes into the dataset for each dataloader
 np.random.shuffle(index)
 split = int(np.floor(train * len(dataset)))
-train_indices, remaining = index[split:], index[:split]
-split = int(np.floor(.67 * len(dataset)))
-test_indices, validation_indices = remaining[split:], remaining[:split]
+train_indices, remaining = index[:split], index[split:]
+split = int(np.floor(.67 * .3 * len(dataset)))
+test_indices, validation_indices = remaining[:split], remaining[split:]
+print("Test: " + str(len(test_indices)))
+print("Train: " + str(len(train_indices)))
+print("valid: " + str(len(validation_indices)))
 
 train_sampler = SubsetRandomSampler(train_indices)
 test_sampler = SubsetRandomSampler(test_indices)
 validation_sampler = SubsetRandomSampler(validation_indices)
 
 #create a dataloader for training, testing, and validation
-train_data_loader = DataLoader(dataset, batch_size=16, sampler=train_sampler)
-test_data_loader = DataLoader(dataset, batch_size=16, sampler=test_sampler)
-validation_data_loader = DataLoader(dataset, batch_size=16, sampler=validation_sampler)
+
 
 
