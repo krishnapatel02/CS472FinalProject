@@ -23,7 +23,7 @@ image_dir = 'data/train/images'
 annotation_dir = 'data/train/annotations'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-classes = {'dot':1, 'vertical_bar':2, 'line':3, 'scatter':4, 'horizontal_bar':5}
+classes = {'dot':0, 'vertical_bar':1, 'line':2, 'scatter':3, 'horizontal_bar':4}
 
 class graphdata(Dataset):
     def __init__(self, image_dir, annotation_dir, transform=None):
