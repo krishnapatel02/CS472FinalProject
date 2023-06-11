@@ -72,7 +72,7 @@ class AlexNet(nn.Module):
 
 class AlexNet_Modified(nn.Module):
 	def __init__(self, args):
-		super(AlexNet_NoPerceptron, self).__init__()
+		super(AlexNet_Modified, self).__init__()
 		self.args = args
 		self.layer1 = nn.Sequential(
 			nn.Conv2d(3, 96, kernel_size=11, stride=4, padding=2),
