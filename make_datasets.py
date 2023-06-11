@@ -71,18 +71,18 @@ index = list(range(len(dataset)))
 
 # dataset distributions
 train = .7
-test = .2
-validation = .1
+test = .1
+validation = .2
 
 # generate random indexes into the dataset for each dataloader
 np.random.shuffle(index)
 split = int(np.floor(train * len(dataset)))
 train_indices, remaining = index[:split], index[split:]
 split = int(np.floor(.67 * .3 * len(dataset)))
-test_indices, validation_indices = remaining[:split], remaining[split:]
+test_indices, validation_indices = remaining[split:], remaining[:split]
 print("Test: " + str(len(test_indices)))
 print("Train: " + str(len(train_indices)))
-print("valid: " + str(len(validation_indices)))
+print("Valid: " + str(len(validation_indices)) + " (held out set)")
 
 train_sampler = SubsetRandomSampler(train_indices)
 test_sampler = SubsetRandomSampler(test_indices)
