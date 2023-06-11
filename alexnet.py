@@ -70,7 +70,7 @@ class AlexNet(nn.Module):
 		return output
 
 
-class AlexNet_NoPerceptron(nn.Module):
+class AlexNet_Modified(nn.Module):
 	def __init__(self, args):
 		super(AlexNet_NoPerceptron, self).__init__()
 		self.args = args
@@ -118,7 +118,7 @@ class LeNet(nn.Module):
 		self.args = args
 		
 		self.layer1 = nn.Sequential(
-			nn.Conv2d(1, 6, kernel_size = 5, padding = 2),
+			nn.Conv2d(3, 6, kernel_size = 5, padding = 2),
 			nn.Sigmoid(),
 			nn.MaxPool2d(kernel_size = 2, stride=2),
 			nn.BatchNorm2d(6)
@@ -132,7 +132,7 @@ class LeNet(nn.Module):
 		)
 
 		self.linear_layer1 = nn.Sequential(
-			nn.Linear(64, 120),
+			nn.Linear(61504, 120),
 			nn.Sigmoid(),
 		)
 
@@ -148,6 +148,7 @@ class LeNet(nn.Module):
 	def forward(self, x):
 		output = self.layer1(x)
 		output = self.layer2(output)
+		output = output.view(output.size(0), -1)
 		output = self.linear_layer1(output)
 		output = self.linear_layer2(output)
 		output = self.linear_layer3(output)
