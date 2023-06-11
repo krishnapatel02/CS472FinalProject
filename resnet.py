@@ -2,7 +2,8 @@
 CIS 472 Machine Learning Final Project
 
 Author: Linnea Gilius
-Credits: https://en.wikipedia.org/wiki/Residual_neural_network 
+Credits: https://blog.paperspace.com/writing-resnet-from-scratch-in-pytorch/
+
 Last Updated: 06/10/2023
 
 Description: contains an implementation of ResNet
