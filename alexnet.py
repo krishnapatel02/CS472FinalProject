@@ -64,8 +64,6 @@ class AlexNet(nn.Module):
 		#output = output.reshape(output.size(0), -1)
 		output = self.linearLayer1(output)
 		output = self.linearLayer2(output)
-		for i in range(self.args.hidden_layers):
-			output = self.linearLayer2(output)
 		output = self.linearLayer3(output)
 		return output
 
