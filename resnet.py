@@ -121,3 +121,15 @@ class ResNet(nn.Module):
 		output = self.fully_connected(output)
 
 		return output
+
+
+def resnet18(arguments):
+	return ResNet(Basic_Block, [2, 2, 2, 2], arguments)
+
+
+def resnet34(arguments):
+	return ResNet(Basic_Block, [3, 4, 6, 3], arguments)
+
+
+def resnet50(arguments):
+	return ResNet(Bottleneck_Block, [3, 4, 6, 3], arguments)
