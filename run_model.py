@@ -31,7 +31,7 @@ eval_acc_all = []
 train_acc_all = []
 epochs = []
 
-def trainAndEval(arguments, model, train_data_loader, test_data_loader, eval_data_loader):
+def train_and_eval(arguments, model, train_data_loader, test_data_loader, eval_data_loader):
     optimizer = arguments.optim(model.parameters(), arguments.learning_rate)
     device = arguments.device
     loss_avged_train = []
