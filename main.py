@@ -41,25 +41,14 @@ class args():
 		return f"Epochs: {self.epochs}\nDropout: {self.dropout}\nBatch Size: {self.batch_size}\nlearn_rate: {self.learning_rate}\noptim: {self.optim} \nloss_fn: {self.loss_fn}" 
 
 
-def test_hyperParam1():
-	arguments = args(
-		epochs=20,
-		dropout= .2,
-		batch_size=16,
-		lr=0.001,
-		optim=optim.SGD,
-		loss_fn=torch.nn.CrossEntropyLoss,
-		hidden_layers= 0
-	)
-
+def runTests(arguments):
 	print(arguments)
-
 	train_data_loader = DataLoader(dataset, batch_size=arguments.batch_size, sampler=train_sampler)
 	test_data_loader = DataLoader(dataset, batch_size=arguments.batch_size, sampler=test_sampler)
 	validation_data_loader = DataLoader(dataset, batch_size=arguments.batch_size, sampler=validation_sampler)
 	
-	print("Testing AlexNet, no Perceptron")
-	model = AlexNet_NoPerceptron(arguments)
+	print("Testing AlexNet, modified")
+	model = AlexNet_Modified(arguments)
 	# print(model)
 	model.to(device)
 	train_and_eval(arguments, model, train_data_loader, test_data_loader, validation_data_loader)
@@ -71,5 +60,28 @@ def test_hyperParam1():
 	
 	print("Testing PyTorch's AlexNet")
 	model = models.AlexNet()
+	model.to(device)
+	train_and_eval(arguments, model, train_data_loader, test_data_loader, validation_data_loader)
+
+	print("Testing LeNet")
+	model = LeNet(arguments)
+	model.to(device)
+	train_and_eval(arguments, model, train_data_loader, test_data_loader, validation_data_loader)
+
+	print("Change to 10 Epochs")
+	arguments.epochs = 10
+
+	print("Testing resnet18")
+	model = resnet18(arguments)
+	model.to(device)
+	train_and_eval(arguments, model, train_data_loader, test_data_loader, validation_data_loader)
+
+	print("Testing resnet50")
+	model = resnet18(arguments)
+	model.to(device)
+	train_and_eval(arguments, model, train_data_loader, test_data_loader, validation_data_loader)
+
+	print("Testing built in resnet18")
+	model = models.resnet18()
 	model.to(device)
 	train_and_eval(arguments, model, train_data_loader, test_data_loader, validation_data_loader)
