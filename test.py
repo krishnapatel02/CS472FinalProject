@@ -1,11 +1,20 @@
-import matplotlib.pyplot as plt
-import numpy as np
-from PIL import Image
-from torch.utils.data import DataLoader, SubsetRandomSampler
+"""
+CIS 472 Machine Learning Final Project
 
+Author: Krishna Patel
+Last Updated: 06/10/2023
+
+Description: contains testing code
+"""
+
+
+import matplotlib
+import numpy as np
 import torch
 import torchvision
-from torchvision import transforms
+
+from PIL import Image
+from torch.utils.data import DataLoader, SubsetRandomSampler
 
 from load_data import *
 
@@ -21,20 +30,20 @@ validation = .1
 
 # image transformations
 transform = transforms.Compose([
-    transforms.Resize((256, 256)),
+	transforms.Resize((256, 256)),
 ])
 
 
 def collate_fn(batch):
-    """ makes the input to the tensors the same size """
-    images = []
-    annotations = []
+	""" makes the input to the tensors the same size """
+	images = []
+	annotations = []
 
-    for image, annotation in batch:
-        images.append(image)
-        annotations.append(annotation)
+	for image, annotation in batch:
+		images.append(image)
+		annotations.append(annotation)
 
-    return images, annotations
+	return images, annotations
 
 
 dataset = graphdata(image_dir, annotation_dir, transform=transform)
@@ -58,16 +67,17 @@ validation_data_loader = DataLoader(dataset, batch_size=16, collate_fn=collate_f
 
 """
 for batch_idx, (images, annotations) in enumerate(validation_data_loader):
-    # Check the loaded images
-    for image in images:
-        # Display or process the image as needed
-        t = transforms.ToPILImage()
-        img = t(image)  # Show the image using PIL.Image
-        # Or convert image to ndarray and visualize using matplotlib, for example
-        img.show()
-        print(annotations)
-    # Break the loop after inspecting a few batches
-    if batch_idx >= 2:
-        break
+	# Check the loaded images
+	for image in images:
+		# Display or process the image as needed
+		t = transforms.ToPILImage()
+		img = t(image)  # Show the image using PIL.Image
+		# Or convert image to ndarray and visualize using matplotlib, for example
+		img.show()
+		print(annotations)
+	# Break the loop after inspecting a few batches
+	if batch_idx >= 2:
+		break
 
 """
+print("finished")
