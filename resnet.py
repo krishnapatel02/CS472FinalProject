@@ -17,13 +17,14 @@ import torch.nn.functional as F
 class Basic_Block(nn.Module):
 	expansion = 1
 
-	def __init__(self, in_channels, out_channels, stride = 1):
+	def __init__(self, in_channels, out_channels, stride = 1, downsample = None):
 		super(Basic_Block, self).__init__()
 
 		self.convolution1 = nn.Conv2d(in_channels, out_channels, kernel_size = 3, stride = stride, padding = 1, bias = False)
 		self.batch_norm1 = nn.BatchNorm2d(out_channels)
 		self.convolution2 = nn.Conv2d(out_channels, out_channels, kernel_size = 3, stride = 1, padding = 1, bias = False)
 		self.batch_norm2 = nn.BatchNorm2d(out_channels)	
+		self.downsample = downsample
 		self.relu = nn.ReLU()
 		self.stride = stride
 
@@ -36,6 +37,10 @@ class Basic_Block(nn.Module):
 
 		output = self.convolution2(output)
 		output = self.batch_norm2(output)
+
+		if self.downsample is not None:
+			identity = self.downsample(x)
+		
 		output = output + identity
 		output = self.relu(output)
 
@@ -45,7 +50,7 @@ class Basic_Block(nn.Module):
 class Bottleneck_Block(nn.Module):
 	expansion = 4
 
-	def __init__(self, in_channels, out_channels, stride = 1):
+	def __init__(self, in_channels, out_channels, stride = 1, downsample = None):
 		super(Bottleneck_Block, self).__init__()
 
 		self.convolution1 = nn.Conv2d(in_channels, out_channels, kernel_size = 1, stride = 1, padding = 0, bias = False)
@@ -54,6 +59,7 @@ class Bottleneck_Block(nn.Module):
 		self.batch_norm2 = nn.BatchNorm2d(out_channels)
 		self.convolution3 = nn.Conv2d(out_channels, out_channels * self.expansion, kernel_size = 1, stride = 1, padding = 0, bias = False)
 		self.batch_norm3 = nn.BatchNorm2d(out_channels * self.expansion)
+		self.downsample = downsample
 		self.relu = nn.ReLU()
 		self.stride = stride
 
@@ -70,6 +76,10 @@ class Bottleneck_Block(nn.Module):
 
 		output = self.convolution3(output)
 		output = self.batch_norm3(output)
+
+		if self.downsample is not None:
+			identity = self.downsample(x)
+		
 		output = output + identity
 		output = self.relu(output)
 
@@ -77,8 +87,9 @@ class Bottleneck_Block(nn.Module):
 
 
 class ResNet(nn.Module):
-	def __init__(self, block, layer_list, num_classes):
+	def __init__(self, block, layer_list, arguments, num_classes = 5):
 		super(ResNet, self).__init__()
+		self.arguments = arguments
 		
 		self.in_channels = 64
 		self.convolution = nn.Conv2d(3, self.in_channels, kernel_size = 7, stride = 2, padding = 3, bias = False)
@@ -95,8 +106,16 @@ class ResNet(nn.Module):
 		self.layer4 = self.build_layer(block, 512, layer_list[3], stride = 2)
 		
 	def build_layer(self, block, planes, blocks, stride = 1):
+		downsample = None
+
+		if (stride != 1) or (self.inplanes != planes * block.expansion):
+			downsample = nn.Sequential(
+				nn.Conv2d(self.in_channels, planes * block.expansion, kernel_size = 1, stride = stride, bias = False),
+				nn.BatchNorm2d(planes * block.expansion)
+			)
+
 		layers = []
-		layers.append(block(self.in_channels, planes, stride))
+		layers.append(block(self.in_channels, planes, stride, downsample))
 		self.in_channels = planes * block.expansion
 
 		for i in range(blocks - 1):
