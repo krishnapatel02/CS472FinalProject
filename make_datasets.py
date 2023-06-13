@@ -4,7 +4,9 @@ CIS 472 Machine Learning Final Project
 Author: Krishna Patel
 Last Updated: 06/10/2023
 
-Description:  
+Description: Goes through the image and annotation directories to create a dataset which is used to
+randomly populate three dataloaders. The images are processed with torchvision and the chart type
+is extracted from the annotations and turned into an int.
 """
 
 import json
