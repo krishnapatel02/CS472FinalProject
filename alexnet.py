@@ -85,11 +85,7 @@ class AlexNet_Modified(nn.Module):
 			nn.BatchNorm2d(256)
 		)
 		self.layer3 = nn.Sequential(
-			nn.Conv2d(256, 384, kernel_size=3, padding=1),
-			nn.ReLU(),
-			nn.Conv2d(384, 384,kernel_size=3, padding=1),
-			nn.ReLU(),
-			nn.Conv2d(384, 256, kernel_size=3, padding=1),
+			nn.Conv2d(256, 256, kernel_size=3, padding=1),
 			nn.ReLU(),
 			nn.MaxPool2d(kernel_size=3, stride=2),
 			nn.BatchNorm2d(256),

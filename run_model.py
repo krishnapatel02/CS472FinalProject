@@ -4,12 +4,13 @@ CIS 472 Machine Learning Final Project
 Author: Krishna Patel
 Last Updated: 06/10/2023
 
-Description: 
+Description: Contains graphing and training code. Called by main file for each model being tested.
 """
 
 
 
-from tqdm import tqdm
+from tqdm.notebook import tqdm
+
 import matplotlib.pyplot as plt
 import torch
 from sklearn.metrics import accuracy_score

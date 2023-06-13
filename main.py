@@ -4,7 +4,8 @@ CIS 472 Machine Learning Final Project
 Authors: Linnea Gilius and Krishna Patel
 Last Updated: 06/10/2023
 
-Description: 
+Description: Will take in arguments for the hyperparameters being evaluated and call the training function to 
+train the model.
 """
 
 
@@ -25,14 +26,13 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 class args():
-	def __init__(self, epochs, dropout, batch_size, lr, optim, loss_fn, hidden_layers):
+	def __init__(self, epochs, dropout, batch_size, lr, optim, loss_fn):
 		self.epochs = epochs
 		self.dropout = dropout
 		self.num_classes = 5
 		self.batch_size = batch_size
 		self.learning_rate = lr
 		self.optim = optim
-		self.hidden_layers = hidden_layers
 		self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 		print(self.device)
 		self.loss_fn = loss_fn
@@ -57,19 +57,11 @@ def runTests(arguments):
 	model = AlexNet(arguments)
 	model.to(device)
 	train_and_eval(arguments, model, train_data_loader, test_data_loader, validation_data_loader)
-	
-	print("Testing PyTorch's AlexNet")
-	model = models.AlexNet()
-	model.to(device)
-	train_and_eval(arguments, model, train_data_loader, test_data_loader, validation_data_loader)
 
 	print("Testing LeNet")
 	model = LeNet(arguments)
 	model.to(device)
 	train_and_eval(arguments, model, train_data_loader, test_data_loader, validation_data_loader)
-
-	print("Change to 10 Epochs")
-	arguments.epochs = 10
 
 	print("Testing resnet18")
 	model = resnet18(arguments)
@@ -77,11 +69,6 @@ def runTests(arguments):
 	train_and_eval(arguments, model, train_data_loader, test_data_loader, validation_data_loader)
 
 	print("Testing resnet50")
-	model = resnet18(arguments)
-	model.to(device)
-	train_and_eval(arguments, model, train_data_loader, test_data_loader, validation_data_loader)
-
-	print("Testing built in resnet18")
-	model = models.resnet18()
+	model = resnet50(arguments)
 	model.to(device)
 	train_and_eval(arguments, model, train_data_loader, test_data_loader, validation_data_loader)
