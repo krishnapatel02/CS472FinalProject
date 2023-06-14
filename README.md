@@ -12,13 +12,11 @@ and the dataset is taken from Kaggle ([link](https://www.kaggle.com/competitions
 <br>
 
 ### Files
-`alexnet.py` <br>
-`load_data.py` <br>
-`main.py` <br>
-`make_datasets.py` <br>
-`resnet.py` <br>
-`run_model.py` <br>
-`test.py`
+`alexnet.py` contains two implementations of AlexNet and one implementation of LeNet <br>
+`main.py` creates the dataloaders used for training and contains the argument class used to adjust hyperparameters used in training. Models are initialized and the argument class is passed along with the model to run_model.py for testing. <br>
+`make_datasets.py` goes through the image and annotation directories to create a dataset which is used to randomly populate three dataloaders. The images are processed with torchvision and the chart type is extracted from the annotations and turned into an int. <br>
+`resnet.py` contains an implementation of ResNet, includes ResNet-18, ResNet-34, and ResNet-50. <br>
+`run_model.py` contains graphing and training code, called by the main file for each model being tested <br>
 
 <br>
 

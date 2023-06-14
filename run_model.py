@@ -4,7 +4,7 @@ CIS 472 Machine Learning Final Project
 Author: Krishna Patel
 Last Updated: 06/10/2023
 
-Description: Contains graphing and training code. Called by main file for each model being tested.
+Description: contains graphing and training code, called by main file for each model being tested.
 """
 
 

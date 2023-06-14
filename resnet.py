@@ -6,7 +6,7 @@ Credits: https://blog.paperspace.com/writing-resnet-from-scratch-in-pytorch/
 
 Last Updated: 06/10/2023
 
-Description: contains an implementation of ResNet
+Description: contains an implementation of ResNet, includes ResNet-18, ResNet-34, and ResNet-50
 """
 
 

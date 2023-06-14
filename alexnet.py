@@ -45,7 +45,6 @@ class AlexNet(nn.Module):
 			nn.Linear(1024, 4096),
 			nn.Dropout(args.dropout),
 			nn.ReLU(),
-			# nn.MaxPool2d(kernel_size = 3, stride = 2)
 		)
 		self.linearLayer2 = nn.Sequential(
 			nn.Linear(4096, 4096),
@@ -61,7 +60,6 @@ class AlexNet(nn.Module):
 		output = self.layer1(x)
 		output = self.layer2(output)
 		output = self.layer3(output)
-		#output = output.reshape(output.size(0), -1)
 		output = self.linearLayer1(output)
 		output = self.linearLayer2(output)
 		output = self.linearLayer3(output)
@@ -94,14 +92,12 @@ class AlexNet_Modified(nn.Module):
 		self.linearLayer1 = nn.Sequential(
 			nn.Dropout(args.dropout),
 			nn.Linear(1024, 5)
-			#nn.MaxPool2d(kernel_size = 3, stride = 2)
 		)
 		
 	def forward(self, x):
 		output = self.layer1(x)
 		output = self.layer2(output)
 		output = self.layer3(output)
-		#output = output.reshape(output.size(0), -1)
 		output = self.linearLayer1(output)
 		return output
 

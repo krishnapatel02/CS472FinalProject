@@ -4,8 +4,8 @@ CIS 472 Machine Learning Final Project
 Authors: Linnea Gilius and Krishna Patel
 Last Updated: 06/10/2023
 
-Description: Will take in arguments for the hyperparameters being evaluated and call the training function to 
-train the model.
+Description: the main file, takes in arguments for the hyperparameters being evaluated
+	and calls the training function to train the model.
 """
 
 
