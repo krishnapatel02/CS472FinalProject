@@ -6,7 +6,8 @@
 
 This project based on a contest on Kaggle: Making Graphs Accessible
 ([link](https://www.kaggle.com/competitions/benetech-making-graphs-accessible/)),
-and the dataset is taken from Kaggle ([link](https://www.kaggle.com/competitions/benetech-making-graphs-accessible/data)).
+and the dataset is taken from Kaggle ([link](https://www.kaggle.com/competitions/benetech-making-graphs-accessible/data)). 
+The implementation is done using PyTorch and other machine learning libraries.
 
 
 <br>
